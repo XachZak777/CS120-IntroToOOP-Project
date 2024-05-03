@@ -15,21 +15,13 @@ public class QuartoGame {
         this.scanner = new Scanner(System.in);
     }
 
-    private List<AbstractPiece> initializePieces () {
+    private List<AbstractPiece> initializePieces() {
         List<AbstractPiece> pieces = new ArrayList<>();
-        for (Height height : Height.values()) {
-            for (Fullness fullness : Fullness.values()) {
-                for (Color color : Color.values()) {
-                    for (Form form : Form.values()) {
-                        pieces.add(new AbstractPiece(height, fullness, form, color) {
-                            @Override
-                            public boolean matchesAttribute(AbstractPiece otherPiece) {
-                                return this.getForm() == otherPiece.getForm() &&
-                                       this.getColor() == otherPiece.getColor() &&
-                                       this.getFullness() == otherPiece.getFullness() &&
-                                       this.getHeight() == otherPiece.getHeight();
-                            }
-                        });
+        for (core.Height height : core.Height.values()) {
+            for (core.Fullness fullness : core.Fullness.values()) {
+                for (core.Color color : core.Color.values()) {
+                    for (core.Form form : core.Form.values()) {
+                        pieces.add(new AbstractPiece(height, fullness, form, color) {});
                     }
                 }
             }
