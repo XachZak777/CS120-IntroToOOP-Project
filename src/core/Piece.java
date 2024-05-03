@@ -2,14 +2,14 @@ package core;
 
 public interface Piece {
 
-    Form getForm();
+    Form getForm ();
 
-    Color getColor();
+    Color getColor ();
 
-    Fullness getFullness();
+    Fullness getFullness ();
 
-    Height getHeight();
+    Height getHeight ();
 
-    String toString();
+    String toString ();
     
 }
