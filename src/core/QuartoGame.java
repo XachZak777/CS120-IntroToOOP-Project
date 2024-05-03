@@ -51,7 +51,7 @@ public class QuartoGame {
         return pieces.remove(pieceIndex);
     }
 
-    private int[] selectPosition () {
+    private int[] selectPosition() {
         System.out.println("Select position (row[1-4] column[1-4]):");
         int row = scanner.nextInt() - 1;
         int col = scanner.nextInt() - 1;
@@ -63,14 +63,15 @@ public class QuartoGame {
         return new int[]{row, col};
     }
 
-    public void startGame () {
-
+    public void startGame() {
         System.out.println("Welcome to Quarto!");
         System.out.println("Let's start the game.");
 
         while (!board.checkWin() && !pieces.isEmpty()) {
+            System.out.println(board); // Print the current game board
+            // Player 1's turn
             System.out.println("Player 1's turn:");
-            AbstractPiece pieceForOpponent = selectPieceForOpponent(1); 
+            AbstractPiece pieceForOpponent = selectPieceForOpponent(1);
             int[] position = selectPosition();
             board.placePiece(position[0], position[1], pieceForOpponent);
             if (board.checkWin()) {
@@ -82,8 +83,10 @@ public class QuartoGame {
                 break;
             }
 
+            System.out.println(board); // Print the current game board
+            // Player 2's turn
             System.out.println("Player 2's turn:");
-            pieceForOpponent = selectPieceForOpponent(2); 
+            pieceForOpponent = selectPieceForOpponent(2);
             position = selectPosition();
             board.placePiece(position[0], position[1], pieceForOpponent);
             if (board.checkWin()) {
