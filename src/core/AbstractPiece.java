@@ -39,7 +39,10 @@ public abstract class AbstractPiece implements Piece{
         return String.format("%s %s %s %s", height, fullness, form, color);
     }
 
-    public boolean matchesAttribute () {
-        return false;
+    public boolean matchesAttribute (AbstractPiece otherPiece) {
+        return this.getForm() == otherPiece.getForm() &&
+               this.getColor() == otherPiece.getColor() &&
+               this.getFullness() == otherPiece.getFullness() &&
+               this.getHeight() == otherPiece.getHeight();
     }
 }
