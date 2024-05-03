@@ -8,22 +8,28 @@ public class QuartoGame {
     private List<AbstractPiece> pieces;
     private Board board;
     private Scanner scanner;
-    private boolean tutorialMode;
 
-    public QuartoGame(boolean tutorialMode) {
-        this.tutorialMode = tutorialMode;
+    public QuartoGame () {
         this.pieces = initializePieces();
         this.board = new Board();
         this.scanner = new Scanner(System.in);
     }
 
-    private List<AbstractPiece> initializePieces() {
+    private List<AbstractPiece> initializePieces () {
         List<AbstractPiece> pieces = new ArrayList<>();
         for (Height height : Height.values()) {
             for (Fullness fullness : Fullness.values()) {
                 for (Color color : Color.values()) {
                     for (Form form : Form.values()) {
-                        pieces.add(new AbstractPiece(height, fullness, form, color) {});
+                        pieces.add(new AbstractPiece(height, fullness, form, color) {
+                            @Override
+                            public boolean matchesAttribute(AbstractPiece otherPiece) {
+                                return this.getForm() == otherPiece.getForm() &&
+                                       this.getColor() == otherPiece.getColor() &&
+                                       this.getFullness() == otherPiece.getFullness() &&
+                                       this.getHeight() == otherPiece.getHeight();
+                            }
+                        });
                     }
                 }
             }
@@ -31,7 +37,7 @@ public class QuartoGame {
         return pieces;
     }
 
-    private AbstractPiece selectPieceForOpponent(int currentPlayer) {
+    private AbstractPiece selectPieceForOpponent (int currentPlayer) {
         System.out.println("Available Pieces:");
         for (int i = 0; i < pieces.size(); i++) {
             System.out.println((i + 1) + ": " + pieces.get(i));
@@ -45,7 +51,7 @@ public class QuartoGame {
         return pieces.remove(pieceIndex);
     }
 
-    private int[] selectPosition() {
+    private int[] selectPosition () {
         System.out.println("Select position (row[1-4] column[1-4]):");
         int row = scanner.nextInt() - 1;
         int col = scanner.nextInt() - 1;
@@ -55,5 +61,48 @@ public class QuartoGame {
             col = scanner.nextInt() - 1;
         }
         return new int[]{row, col};
+    }
+
+    public void startGame () {
+
+        System.out.println("Welcome to Quarto!");
+        System.out.println("Let's start the game.");
+
+        while (!board.checkWin() && !pieces.isEmpty()) {
+            System.out.println("Player 1's turn:");
+            AbstractPiece pieceForOpponent = selectPieceForOpponent(1); 
+            int[] position = selectPosition();
+            board.placePiece(position[0], position[1], pieceForOpponent);
+            if (board.checkWin()) {
+                System.out.println("Player 1 wins!");
+                break;
+            }
+            if (pieces.isEmpty()) {
+                System.out.println("No more pieces to select. It's a draw!");
+                break;
+            }
+
+            System.out.println("Player 2's turn:");
+            pieceForOpponent = selectPieceForOpponent(2); 
+            position = selectPosition();
+            board.placePiece(position[0], position[1], pieceForOpponent);
+            if (board.checkWin()) {
+                System.out.println("Player 2 wins!");
+                break;
+            }
+            if (pieces.isEmpty()) {
+                System.out.println("No more pieces to select. It's a draw!");
+                break;
+            }
+        }
+    }
+
+    public void showGameRules () {
+        System.out.println("Game Rules:");
+        System.out.println();
+        System.out.println("Here are the basic rules:" + "\n" + "1. Players take turns placing pieces on the board."  + "\n" + 
+        "2. Once a piece is placed on the board, it cannot be moved or removed." +  "\n" + "3. The player who places a piece chooses which piece the opponent will play next." + "\n" +
+        "4. The game continues until a player forms a line of four pieces with a common attribute (e.g., four tall pieces, four dark pieces, etc.)." + "\n" +
+        "5. If the board is filled without any player achieving a winning line, the game ends in a draw.");
     }
 }
