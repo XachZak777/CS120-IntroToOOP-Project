@@ -1,8 +1,8 @@
-import core.QuartoGame;
+import javax.swing.SwingUtilities;
+import ui.QuartoGUI;
 
 public class Main {
     public static void main(String[] args) {
-        QuartoGame game = new QuartoGame();
-        game.startGame();
+        SwingUtilities.invokeLater(QuartoGUI::new);
     }
 }
