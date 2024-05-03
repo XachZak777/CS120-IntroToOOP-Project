@@ -7,7 +7,7 @@ public abstract class AbstractPiece implements Piece{
     private final Fullness fullness;
     private final Form form;
 
-    protected AbstractPiece (Height height, Color color, Fullness fullness, Form form) {
+    public AbstractPiece (Height height, Fullness fullness, Form form, Color color) {
         this.height = height;
         this.color = color;
         this.fullness = fullness;
@@ -37,5 +37,9 @@ public abstract class AbstractPiece implements Piece{
     @Override
     public String toString () {
         return String.format("%s %s %s %s", height, fullness, form, color);
+    }
+
+    public boolean matchesAttribute () {
+        return false;
     }
 }
