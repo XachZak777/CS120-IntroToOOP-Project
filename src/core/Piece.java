@@ -11,5 +11,7 @@ public interface Piece {
     Height getHeight ();
 
     String toString ();
+
+    boolean matchesAttribute (AbstractPiece otherPiece);
     
 }
