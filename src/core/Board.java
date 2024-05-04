@@ -1,12 +1,21 @@
 package core;
 
+import core.Attributes.Color;
+import core.Attributes.Form;
+import core.Attributes.Fullness;
+import core.Attributes.Height;
+import core.Pieces.AbstractPiece;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Board {
-    private final AbstractPiece[][] board;  
+    private final AbstractPiece[][] board;
     public Board() {
         this.board = new AbstractPiece[4][4]; 
     }
 
-    public boolean placePiece (int row, int col, AbstractPiece piece) {
+    public boolean placePiece(int row, int col, AbstractPiece piece) {
         if (isPositionValid(row, col) && isPositionEmpty(row, col)) {
             board[row][col] = piece;
             return true;
@@ -49,7 +58,7 @@ public class Board {
                checkLineForWin(board[0][3], board[1][2], board[2][1], board[3][0]);
     }
 
-    private boolean checkLineForWin (AbstractPiece... pieces) {
+    private boolean checkLineForWin(AbstractPiece... pieces) {
         if (pieces[0] == null) return false; // Can't have a line win if the first piece is null
         // Check each attribute type for matches
         for (Height height : Height.values()) {
@@ -77,17 +86,13 @@ public class Board {
     }
 
     private <T> boolean isEqual (AbstractPiece piece, T attribute) {
-        if (attribute instanceof Height) {
-            return piece.getHeight() == attribute;
-        } else if (attribute instanceof Fullness) {
-            return piece.getFullness() == attribute;
-        } else if (attribute instanceof Form) {
-            return piece.getForm() == attribute;
-        } else if (attribute instanceof Color) {
-            return piece.getColor() == attribute;
-        } else {
-            return false;
-        }
+        return switch (attribute) {
+            case Height height -> piece.getHeight() == attribute;
+            case Fullness fullness -> piece.getFullness() == attribute;
+            case Form form -> piece.getForm() == attribute;
+            case Color color -> piece.getColor() == attribute;
+            case null, default -> false;
+        };
     }
 
     @Override

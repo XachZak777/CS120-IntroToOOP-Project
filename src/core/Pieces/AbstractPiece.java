@@ -1,6 +1,11 @@
-package core;
+package core.Pieces;
 
-public abstract class AbstractPiece implements Piece{
+import core.Attributes.Color;
+import core.Attributes.Form;
+import core.Attributes.Fullness;
+import core.Attributes.Height;
+
+public abstract class AbstractPiece implements Piece {
 
     private final Height height;
     private final Color color;

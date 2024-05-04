@@ -1,5 +1,13 @@
 package core;
 
+import core.Attributes.Color;
+import core.Attributes.Form;
+import core.Attributes.Fullness;
+import core.Attributes.Height;
+import core.Pieces.AbstractPiece;
+import core.Pieces.Piece;
+import core.Pieces.Pieces;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -10,23 +18,9 @@ public class QuartoGame {
     private Scanner scanner;
 
     public QuartoGame () {
-        this.pieces = initializePieces();
+        this.pieces = Pieces.getAllPieces();
         this.board = new Board();
         this.scanner = new Scanner(System.in);
-    }
-
-    private List<AbstractPiece> initializePieces() {
-        List<AbstractPiece> pieces = new ArrayList<>();
-        for (core.Height height : core.Height.values()) {
-            for (core.Fullness fullness : core.Fullness.values()) {
-                for (core.Color color : core.Color.values()) {
-                    for (core.Form form : core.Form.values()) {
-                        pieces.add(new AbstractPiece(height, fullness, form, color) {});
-                    }
-                }
-            }
-        }
-        return pieces;
     }
 
     private AbstractPiece selectPieceForOpponent (int currentPlayer) {
@@ -95,7 +89,7 @@ public class QuartoGame {
     public void showGameRules () {
         System.out.println("Game Rules:");
         System.out.println();
-        System.out.println("Here are the basic rules:" + "\n" + "1. Players take turns placing pieces on the board."  + "\n" + 
+        System.out.println("Here are the basic rules:" + "\n" + "1. Players take turns placing pieces on the board."  + "\n" +
         "2. Once a piece is placed on the board, it cannot be moved or removed." +  "\n" + "3. The player who places a piece chooses which piece the opponent will play next." + "\n" +
         "4. The game continues until a player forms a line of four pieces with a common attribute (e.g., four tall pieces, four dark pieces, etc.)." + "\n" +
         "5. If the board is filled without any player achieving a winning line, the game ends in a draw.");

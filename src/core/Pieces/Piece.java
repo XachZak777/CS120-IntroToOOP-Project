@@ -1,4 +1,9 @@
-package core;
+package core.Pieces;
+
+import core.Attributes.Color;
+import core.Attributes.Form;
+import core.Attributes.Fullness;
+import core.Attributes.Height;
 
 public interface Piece {
 
