@@ -3,35 +3,64 @@ package core;
 import core.Attributes.*;
 import core.Pieces.Piece;
 
-public class Board {
-    private final Piece[][] board;
-    public final int boardSize = 4;
+public class Game {
+    public enum Turn {
+        PLAYER_1("Player 1"),
+        PLAYER_2("Player 2");
 
-    public Board() {
-        this.board = new Piece[boardSize][boardSize];
+        private final String name;
+
+        Turn(String s) {
+            name = s;
+        }
+
+        public String toString() {
+            return name;
+        }
+    }
+
+    private final Piece[][] board;
+    public final int BOARD_SIZE = 4;
+    private Turn turn;
+
+    public Game() {
+        this.board = new Piece[BOARD_SIZE][BOARD_SIZE];
+        this.turn = Turn.PLAYER_1;
     }
 
     public boolean placePiece(int row, int col, Piece piece) {
         if (isPositionValid(row, col) && isPositionEmpty(row, col)) {
             board[row][col] = piece;
+            toggleTurn();
             return true;
         }
         return false;
     }
 
-    public boolean isPositionEmpty (int row, int col) {
+    public boolean isPositionEmpty(int row, int col) {
         return isPositionValid(row, col) && board[row][col] == null;
     }
- 
-    private boolean isPositionValid (int row, int col) {
-        return row >= 0 && row < boardSize && col >= 0 && col < boardSize;
-    }
 
-    public boolean checkWin () {
+    public boolean checkWin() {
         return checkRowsForWin() || checkColumnsForWin() || checkDiagonalsForWin();
     }
 
-    private boolean checkRowsForWin () {
+    public Turn getTurn() {
+        return turn;
+    }
+
+    private void toggleTurn() {
+        switch (turn) {
+            case PLAYER_1 -> turn = Turn.PLAYER_2;
+            case PLAYER_2 -> turn = Turn.PLAYER_1;
+        }
+    }
+
+    private boolean isPositionValid (int row, int col) {
+        return row >= 0 && row < BOARD_SIZE && col >= 0 && col < BOARD_SIZE;
+    }
+
+    private boolean checkRowsForWin() {
         for (int row = 0; row < 4; row++) {
             if (checkLineForWin(board[row][0], board[row][1], board[row][2], board[row][3])) {
                 return true;
@@ -40,7 +69,7 @@ public class Board {
         return false;
     }
 
-    private boolean checkColumnsForWin () {
+    private boolean checkColumnsForWin() {
         for (int col = 0; col < 4; col++) {
             if (checkLineForWin(board[0][col], board[1][col], board[2][col], board[3][col])) {
                 return true;
@@ -94,8 +123,8 @@ public class Board {
     @Override
     public String toString () {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < boardSize; i++) {
-            for (int j = 0; j < boardSize; j++) {
+        for (int i = 0; i < BOARD_SIZE; i++) {
+            for (int j = 0; j < BOARD_SIZE; j++) {
                 sb.append(board[i][j] == null ? ". " : "P ");
             }
             sb.append("\n");

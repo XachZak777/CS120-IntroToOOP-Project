@@ -1,5 +1,6 @@
-package core;
+package console;
 
+import core.Game;
 import core.Pieces.Piece;
 import core.Pieces.Pieces;
 
@@ -8,12 +9,12 @@ import java.util.Scanner;
 
 public class QuartoGame {
     private List<Piece> pieces;
-    private Board board;
+    private Game board;
     private Scanner scanner;
 
     public QuartoGame () {
         this.pieces = Pieces.getAllPieces();
-        this.board = new Board();
+        this.board = new Game();
         this.scanner = new Scanner(System.in);
     }
 

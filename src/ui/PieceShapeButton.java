@@ -51,7 +51,7 @@ public class PieceShapeButton extends JButton {
     }
 
     protected void setFullnessAndForm(Graphics2D g2d, int[] sizes) {
-        g2d.setStroke(new BasicStroke(3));
+        g2d.setStroke(new BasicStroke(5));
         if (_piece.getForm() == Form.ROUND && _piece.getFullness() == Fullness.SOLID) {
             g2d.fillOval(sizes[0], sizes[1], sizes[2], sizes[3]);
         }

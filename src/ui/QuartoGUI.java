@@ -1,7 +1,7 @@
 package ui;
 
 import core.Pieces.Piece;
-import core.Board;
+import core.Game;
 import core.Pieces.Pieces;
 
 import javax.swing.*;
@@ -13,10 +13,12 @@ public class QuartoGUI extends JFrame {
     public static final int SIDE_BUTTON_SIZE = 100;
     public static final int BOARD_BUTTON_SIZE = 200;
 
+    private static final String label = "%s, choose piece for %s";
 
-    private final Board board;
+    private final Game game;
     private Piece selectedPiece;
     private PieceShapeButton selectedPieceShapeButton;
+    private final JLabel infoLabel = new JLabel();
 
     public QuartoGUI() {
         setTitle("Quarto Game");
@@ -24,16 +26,21 @@ public class QuartoGUI extends JFrame {
         setLayout(new BorderLayout());
         setSize(WIDTH, HEIGHT);
 
-        board = new Board();
+        game = new Game();
 
+        JPanel infoPanel = getInfoPanel();
         JPanel boardPanel = getBoardButtonsPanel();
         JPanel piecePanel = getPiecesPanel();
 
         add(boardPanel, BorderLayout.CENTER);
         add(piecePanel, BorderLayout.WEST);
+        add(infoPanel, BorderLayout.SOUTH);
 
         setLocationRelativeTo(null);
         setVisible(true);
+
+        String firstInfo = String.format(label + " to start the game!", "Player 2", "Player 1");
+        updateLabel(firstInfo);
     }
 
     private JPanel getPiecesPanel() {
@@ -45,12 +52,7 @@ public class QuartoGUI extends JFrame {
 
         wrapperPanel.add(piecesPanel);
         for (Piece piece : Pieces.getAllPieces()) {
-            PieceShapeButton pieceButton = new PieceShapeButton(piece);
-            pieceButton.setPreferredSize(new Dimension(SIDE_BUTTON_SIZE, SIDE_BUTTON_SIZE));
-            pieceButton.addActionListener((e) -> {
-                selectedPiece = piece;
-                selectedPieceShapeButton = pieceButton;
-            });
+            PieceShapeButton pieceButton = getPieceShapeButton(piece);
             piecesPanel.add(pieceButton);
         }
 
@@ -58,17 +60,31 @@ public class QuartoGUI extends JFrame {
     }
 
     private JPanel getBoardButtonsPanel() {
-        JPanel boardPanel = new JPanel(new GridLayout(4, 4));
+        JPanel boardPanel = new JPanel(new GridLayout(game.BOARD_SIZE, game.BOARD_SIZE));
 
-        PieceShapeButton[][] buttons = new PieceShapeButton[4][4];
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
+        PieceShapeButton[][] buttons = new PieceShapeButton[game.BOARD_SIZE][game.BOARD_SIZE];
+        for (int i = 0; i < game.BOARD_SIZE; i++) {
+            for (int j = 0; j < game.BOARD_SIZE; j++) {
                 buttons[i][j] = getButton(buttons, i, j);
                 boardPanel.add(buttons[i][j]);
             }
         }
 
         return boardPanel;
+    }
+
+    private JPanel getInfoPanel() {
+        JPanel bottomPanel = new JPanel();
+        bottomPanel.setBackground(Color.LIGHT_GRAY);
+
+        bottomPanel.add(infoLabel);
+
+        return bottomPanel;
+    }
+
+    private void updateLabel(String text) {
+        infoLabel.setText(text);
+        infoLabel.repaint();
     }
 
     private PieceShapeButton getButton(PieceShapeButton[][] buttons, int i, int j) {
@@ -78,8 +94,15 @@ public class QuartoGUI extends JFrame {
         button.addActionListener((e) -> {
             if (selectedPiece == null) return;
 
-            boolean placed = board.placePiece(i, j, selectedPiece);
+            boolean placed = game.placePiece(i, j, selectedPiece);
             if (!placed) return;
+
+            Game.Turn turn = game.getTurn();
+
+            switch (turn) {
+                case PLAYER_1 -> updateLabel(String.format(label, "Player 2", "Player 1"));
+                case PLAYER_2 -> updateLabel(String.format(label, "Player 1", "Player 2"));
+            }
 
             buttons[i][j].setPiece(selectedPiece);
             buttons[i][j].repaint();
@@ -90,5 +113,22 @@ public class QuartoGUI extends JFrame {
         });
 
         return button;
+    }
+
+    private PieceShapeButton getPieceShapeButton(Piece piece) {
+        PieceShapeButton pieceButton = new PieceShapeButton(piece);
+        pieceButton.setPreferredSize(new Dimension(SIDE_BUTTON_SIZE, SIDE_BUTTON_SIZE));
+        pieceButton.addActionListener((e) -> {
+            selectedPiece = piece;
+            selectedPieceShapeButton = pieceButton;
+
+            Game.Turn turn = game.getTurn();
+
+            switch (turn) {
+                case PLAYER_1 -> updateLabel("Player 1's turn. Piece to play: " + piece);
+                case PLAYER_2 -> updateLabel("Player 2's turn. Piece to play: " + piece);
+            }
+        });
+        return pieceButton;
     }
 }
