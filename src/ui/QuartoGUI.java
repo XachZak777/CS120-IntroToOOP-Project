@@ -26,7 +26,6 @@ public class QuartoGUI extends JFrame {
     private PieceShapeButton selectedPieceShapeButton;
     private final JLabel infoLabel = new JLabel();
 
-    // panels
     private final JPanel infoPanel;
     private final JPanel boardPanel;
     private final JPanel pieceWrapperPanel;
@@ -42,7 +41,6 @@ public class QuartoGUI extends JFrame {
 
         game = new Game();
 
-        // initalize panels
         infoPanel = constructInfoPanel();
         boardPanel = constructBoardButtonsPanel();
         pieceWrapperPanel = constructPiecesPanel();
@@ -193,7 +191,6 @@ public class QuartoGUI extends JFrame {
     }
 
     private void resetLeftSidePiecePanel() {
-        // Iterate through all the buttons in the pieces panel
         JPanel piecePanel = (JPanel) pieceWrapperPanel.getComponents()[0];
         Component[] components = piecePanel.getComponents();
         for (Component component : components) {
