@@ -1,15 +1,14 @@
 package core;
 
-import core.Attributes.Color;
-import core.Attributes.Form;
-import core.Attributes.Fullness;
-import core.Attributes.Height;
+import core.Attributes.*;
 import core.Pieces.Piece;
 
 public class Board {
     private final Piece[][] board;
+    public final int boardSize = 4;
+
     public Board() {
-        this.board = new Piece[4][4];
+        this.board = new Piece[boardSize][boardSize];
     }
 
     public boolean placePiece(int row, int col, Piece piece) {
@@ -25,7 +24,7 @@ public class Board {
     }
  
     private boolean isPositionValid (int row, int col) {
-        return row >= 0 && row < 4 && col >= 0 && col < 4;
+        return row >= 0 && row < boardSize && col >= 0 && col < boardSize;
     }
 
     public boolean checkWin () {
@@ -73,7 +72,7 @@ public class Board {
         return false;
     }
 
-    private <T> boolean allMatchAttribute (Piece[] pieces, T attribute) {
+    private <TAttribute extends Attribute> boolean allMatchAttribute (Piece[] pieces, TAttribute attribute) {
         for (Piece piece : pieces) {
             if (piece == null || !isEqual(piece, attribute)) {
                 return false;
@@ -82,12 +81,12 @@ public class Board {
         return true;
     }
 
-    private <T> boolean isEqual (Piece piece, T attribute) {
+    private <TAttribute extends Attribute> boolean isEqual (Piece piece, TAttribute attribute) {
         return switch (attribute) {
-            case Height height -> piece.getHeight() == attribute;
-            case Fullness fullness -> piece.getFullness() == attribute;
-            case Form form -> piece.getForm() == attribute;
-            case Color color -> piece.getColor() == attribute;
+            case Height height -> piece.getHeight() == height;
+            case Fullness fullness -> piece.getFullness() == fullness;
+            case Form form -> piece.getForm() == form;
+            case Color color -> piece.getColor() == color;
             case null, default -> false;
         };
     }
@@ -95,8 +94,8 @@ public class Board {
     @Override
     public String toString () {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
+        for (int i = 0; i < boardSize; i++) {
+            for (int j = 0; j < boardSize; j++) {
                 sb.append(board[i][j] == null ? ". " : "P ");
             }
             sb.append("\n");

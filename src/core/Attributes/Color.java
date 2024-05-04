@@ -1,5 +1,5 @@
 package core.Attributes;
 
-public enum Color {
+public enum Color implements Attribute {
     DARK, LIGHT;
 }
