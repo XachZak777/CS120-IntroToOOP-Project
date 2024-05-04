@@ -1,19 +1,13 @@
 package core;
 
-import core.Attributes.Color;
-import core.Attributes.Form;
-import core.Attributes.Fullness;
-import core.Attributes.Height;
-import core.Pieces.AbstractPiece;
 import core.Pieces.Piece;
 import core.Pieces.Pieces;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class QuartoGame {
-    private List<AbstractPiece> pieces;
+    private List<Piece> pieces;
     private Board board;
     private Scanner scanner;
 
@@ -23,7 +17,7 @@ public class QuartoGame {
         this.scanner = new Scanner(System.in);
     }
 
-    private AbstractPiece selectPieceForOpponent (int currentPlayer) {
+    private Piece selectPieceForOpponent (int currentPlayer) {
         System.out.println("Available Pieces:");
         for (int i = 0; i < pieces.size(); i++) {
             System.out.println((i + 1) + ": " + pieces.get(i));
@@ -57,7 +51,7 @@ public class QuartoGame {
             System.out.println(board); // Print the current game board
             // Player 1's turn
             System.out.println("Player 1's turn:");
-            AbstractPiece pieceForOpponent = selectPieceForOpponent(1);
+            Piece pieceForOpponent = selectPieceForOpponent(1);
             int[] position = selectPosition();
             board.placePiece(position[0], position[1], pieceForOpponent);
             if (board.checkWin()) {

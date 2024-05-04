@@ -5,18 +5,43 @@ import core.Attributes.Form;
 import core.Attributes.Fullness;
 import core.Attributes.Height;
 
-public interface Piece {
+public class Piece {
+    private final Height height;
+    private final Color color;
+    private final Fullness fullness;
+    private final Form form;
 
-    Form getForm ();
+    public Piece(Height height, Fullness fullness, Form form, Color color) {
+        this.height = height;
+        this.color = color;
+        this.fullness = fullness;
+        this.form = form;
+    }
 
-    Color getColor ();
+    public Height getHeight () {
+        return height;
+    }
 
-    Fullness getFullness ();
+    public Fullness getFullness () {
+        return fullness;
+    }
 
-    Height getHeight ();
+    public Form getForm () {
+        return form;
+    }
 
-    String toString ();
+    public Color getColor () {
+        return color;
+    }
 
-    boolean matchesAttribute (AbstractPiece otherPiece);
-    
+    public String toString () {
+        return String.format("%s %s %s %s", height, fullness, form, color);
+    }
+
+    public boolean matchesAttribute (Piece otherPiece) {
+        return this.getForm() == otherPiece.getForm() &&
+               this.getColor() == otherPiece.getColor() &&
+               this.getFullness() == otherPiece.getFullness() &&
+               this.getHeight() == otherPiece.getHeight();
+    }
 }

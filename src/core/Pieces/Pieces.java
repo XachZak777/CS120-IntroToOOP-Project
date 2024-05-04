@@ -6,19 +6,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Pieces {
-    public static List<AbstractPiece> getAllPieces() {
+    public static List<Piece> getAllPieces() {
         return pieces;
     }
 
-    private static final List<AbstractPiece> pieces = initializePieces();
+    private static final List<Piece> pieces = initializePieces();
 
-    private static List<AbstractPiece> initializePieces() {
-        List<AbstractPiece> pieces = new ArrayList<>();
+    private static List<Piece> initializePieces() {
+        List<Piece> pieces = new ArrayList<>();
         for (Height height : Height.values()) {
             for (Fullness fullness : Fullness.values()) {
                 for (Color color : Color.values()) {
                     for (Form form : Form.values()) {
-                        pieces.add(new AbstractPiece(height, fullness, form, color) {});
+                        pieces.add(new Piece(height, fullness, form, color) {});
                     }
                 }
             }

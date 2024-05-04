@@ -1,6 +1,6 @@
 package ui;
 
-import core.Pieces.AbstractPiece;
+import core.Pieces.Piece;
 import core.Board;
 import core.Pieces.Pieces;
 
@@ -15,7 +15,8 @@ public class QuartoGUI extends JFrame {
 
 
     private final Board board;
-    private AbstractPiece selectedPiece;
+    private Piece selectedPiece;
+    private PieceShapeButton selectedPieceShapeButton;
 
     public QuartoGUI() {
         setTitle("Quarto Game");
@@ -25,8 +26,9 @@ public class QuartoGUI extends JFrame {
 
         board = new Board();
 
-        JPanel boardPanel = addBoardButtons();
-        JPanel piecePanel = addPiecesToPanel();
+        JPanel boardPanel = getBoardButtonsPanel();
+        JPanel piecePanel = getPiecesPanel();
+
         add(boardPanel, BorderLayout.CENTER);
         add(piecePanel, BorderLayout.WEST);
 
@@ -34,7 +36,7 @@ public class QuartoGUI extends JFrame {
         setVisible(true);
     }
 
-    private JPanel addPiecesToPanel() {
+    private JPanel getPiecesPanel() {
         JPanel wrapperPanel = new JPanel();
         wrapperPanel.setLayout(new BoxLayout(wrapperPanel, BoxLayout.Y_AXIS));
 
@@ -42,18 +44,20 @@ public class QuartoGUI extends JFrame {
         piecesPanel.setLayout(new GridLayout(8,2));
 
         wrapperPanel.add(piecesPanel);
-        for (AbstractPiece piece : Pieces.getAllPieces()) {
-            JButton pieceButton = new PieceShapeButton(piece);
-            pieceButton.setEnabled(false);
+        for (Piece piece : Pieces.getAllPieces()) {
+            PieceShapeButton pieceButton = new PieceShapeButton(piece);
             pieceButton.setPreferredSize(new Dimension(SIDE_BUTTON_SIZE, SIDE_BUTTON_SIZE));
-            pieceButton.addActionListener((e) -> selectedPiece = piece);
+            pieceButton.addActionListener((e) -> {
+                selectedPiece = piece;
+                selectedPieceShapeButton = pieceButton;
+            });
             piecesPanel.add(pieceButton);
         }
 
         return wrapperPanel;
     }
 
-    private JPanel addBoardButtons() {
+    private JPanel getBoardButtonsPanel() {
         JPanel boardPanel = new JPanel(new GridLayout(4, 4));
 
         PieceShapeButton[][] buttons = new PieceShapeButton[4][4];
@@ -77,10 +81,12 @@ public class QuartoGUI extends JFrame {
             boolean placed = board.placePiece(i, j, selectedPiece);
             if (!placed) return;
 
-            System.out.println("selectedPiece: " + selectedPiece);
             buttons[i][j].setPiece(selectedPiece);
             buttons[i][j].repaint();
+            selectedPieceShapeButton.setEnabled(false);
+
             selectedPiece = null;
+            selectedPieceShapeButton = null;
         });
 
         return button;

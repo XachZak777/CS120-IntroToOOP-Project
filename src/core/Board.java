@@ -4,18 +4,15 @@ import core.Attributes.Color;
 import core.Attributes.Form;
 import core.Attributes.Fullness;
 import core.Attributes.Height;
-import core.Pieces.AbstractPiece;
-
-import java.util.ArrayList;
-import java.util.List;
+import core.Pieces.Piece;
 
 public class Board {
-    private final AbstractPiece[][] board;
+    private final Piece[][] board;
     public Board() {
-        this.board = new AbstractPiece[4][4]; 
+        this.board = new Piece[4][4];
     }
 
-    public boolean placePiece(int row, int col, AbstractPiece piece) {
+    public boolean placePiece(int row, int col, Piece piece) {
         if (isPositionValid(row, col) && isPositionEmpty(row, col)) {
             board[row][col] = piece;
             return true;
@@ -58,7 +55,7 @@ public class Board {
                checkLineForWin(board[0][3], board[1][2], board[2][1], board[3][0]);
     }
 
-    private boolean checkLineForWin(AbstractPiece... pieces) {
+    private boolean checkLineForWin(Piece... pieces) {
         if (pieces[0] == null) return false; // Can't have a line win if the first piece is null
         // Check each attribute type for matches
         for (Height height : Height.values()) {
@@ -76,8 +73,8 @@ public class Board {
         return false;
     }
 
-    private <T> boolean allMatchAttribute (AbstractPiece[] pieces, T attribute) {
-        for (AbstractPiece piece : pieces) {
+    private <T> boolean allMatchAttribute (Piece[] pieces, T attribute) {
+        for (Piece piece : pieces) {
             if (piece == null || !isEqual(piece, attribute)) {
                 return false;
             }
@@ -85,7 +82,7 @@ public class Board {
         return true;
     }
 
-    private <T> boolean isEqual (AbstractPiece piece, T attribute) {
+    private <T> boolean isEqual (Piece piece, T attribute) {
         return switch (attribute) {
             case Height height -> piece.getHeight() == attribute;
             case Fullness fullness -> piece.getFullness() == attribute;

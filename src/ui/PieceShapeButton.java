@@ -2,15 +2,15 @@ package ui;
 
 import core.Attributes.Form;
 import core.Attributes.Fullness;
-import core.Pieces.AbstractPiece;
+import core.Pieces.Piece;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class PieceShapeButton extends JButton {
-    private AbstractPiece _piece;
+    private Piece _piece;
 
-    public PieceShapeButton(AbstractPiece piece) {
+    public PieceShapeButton(Piece piece) {
         _piece = piece;
     }
 
@@ -18,7 +18,7 @@ public class PieceShapeButton extends JButton {
         _piece = null;
     }
 
-    public void setPiece(AbstractPiece piece) {
+    public void setPiece(Piece piece) {
         _piece = piece;
     }
 
