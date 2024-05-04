@@ -7,15 +7,13 @@ import core.Pieces.Pieces;
 import javax.swing.*;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class QuartoGUI extends JFrame {
 
     private PieceShapeButton[][] boardButtons;
 
     public static final int WIDTH = 1000;
-    public static final int HEIGHT = 800;
+    public static final int HEIGHT = 900;
     public static final int SIDE_BUTTON_SIZE = 100;
     public static final int BOARD_BUTTON_SIZE = 200;
 
@@ -170,12 +168,7 @@ public class QuartoGUI extends JFrame {
     private JPanel constructControlPanel() {
         JPanel controlPanel = new JPanel();
         JButton restartButton = new JButton("Restart");
-        restartButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                restartGame();
-            }
-        });
+        restartButton.addActionListener((e) -> restartGame());
         controlPanel.add(restartButton);
         return controlPanel;
     }
@@ -194,9 +187,7 @@ public class QuartoGUI extends JFrame {
         JPanel piecePanel = (JPanel) pieceWrapperPanel.getComponents()[0];
         Component[] components = piecePanel.getComponents();
         for (Component component : components) {
-            System.out.println(component);
-            if (component instanceof PieceShapeButton) {
-                PieceShapeButton button = (PieceShapeButton) component;
+            if (component instanceof PieceShapeButton button) {
                 button.setEnabled(true);
             }
         }
@@ -205,8 +196,7 @@ public class QuartoGUI extends JFrame {
     private void resetBoardButtons() {
         Component[] components = boardPanel.getComponents();
         for (Component component : components) {
-            if (component instanceof PieceShapeButton) {
-                PieceShapeButton button = (PieceShapeButton) component;
+            if (component instanceof PieceShapeButton button) {
                 button.setPiece(null);
                 button.setEnabled(true);
                 button.repaint();
