@@ -4,6 +4,7 @@ import core.Attributes.*;
 import core.Pieces.Piece;
 
 public class Game {
+    
     public enum Turn {
         PLAYER_1("Player 1"),
         PLAYER_2("Player 2");
@@ -42,7 +43,24 @@ public class Game {
     }
 
     public boolean checkWin() {
-        return checkRowsForWin() || checkColumnsForWin() || checkDiagonalsForWin();
+        if (checkRowsForWin() || checkColumnsForWin() || checkDiagonalsForWin()) {
+            return true; // Player 1 or Player 2 wins
+        } else if (checkDraw()) {
+            return true; // Draw
+        }
+        return false; // No win or draw
+    }
+
+    public boolean checkDraw() {
+        // Check if the board is full (no empty positions)
+        for (Piece[] row : board) {
+            for (Piece piece : row) {
+                if (piece == null) {
+                    return false; // Board is not full, not a draw
+                }
+            }
+        }
+        return true; // Board is full, it's a draw
     }
 
     public Turn getTurn() {
@@ -59,6 +77,17 @@ public class Game {
     private boolean isPositionValid (int row, int col) {
         return row >= 0 && row < BOARD_SIZE && col >= 0 && col < BOARD_SIZE;
     }
+
+    // public boolean isPieceUsed(Piece piece) {
+    //     for (Piece[] row : board) {
+    //         for (Piece boardPiece : row) {
+    //             if (boardPiece != null && boardPiece.matchesAttribute(piece)) {
+    //                 return true; 
+    //             }
+    //         }
+    //     }
+    //     return false; 
+    // }
 
     private boolean checkRowsForWin() {
         for (int row = 0; row < 4; row++) {
@@ -130,5 +159,15 @@ public class Game {
             sb.append("\n");
         }
         return sb.toString();
+    }
+
+    public void reset() {
+        for (int i = 0; i < BOARD_SIZE; i++) {
+            for (int j = 0; j < BOARD_SIZE; j++) {
+                board[i][j] = null;
+            }
+        }
+        // Reset turn to PLAYER_1
+        turn = Turn.PLAYER_1;
     }
 }
