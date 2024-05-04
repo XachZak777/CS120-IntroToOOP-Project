@@ -26,6 +26,12 @@ public class QuartoGUI extends JFrame {
     private PieceShapeButton selectedPieceShapeButton;
     private final JLabel infoLabel = new JLabel();
 
+    // panels
+    private final JPanel infoPanel;
+    private final JPanel boardPanel;
+    private final JPanel pieceWrapperPanel;
+    private final JPanel controlPanel;
+
     public QuartoGUI() {
 
         boardButtons = new PieceShapeButton[4][4];
@@ -36,13 +42,14 @@ public class QuartoGUI extends JFrame {
 
         game = new Game();
 
-        JPanel infoPanel = getInfoPanel();
-        JPanel boardPanel = getBoardButtonsPanel();
-        JPanel piecePanel = getPiecesPanel();
-        JPanel controlPanel = getControlPanel(); 
+        // initalize panels
+        infoPanel = constructInfoPanel();
+        boardPanel = constructBoardButtonsPanel();
+        pieceWrapperPanel = constructPiecesPanel();
+        controlPanel = constructControlPanel();
 
         add(boardPanel, BorderLayout.CENTER);
-        add(piecePanel, BorderLayout.WEST);
+        add(pieceWrapperPanel, BorderLayout.WEST);
         add(infoPanel, BorderLayout.SOUTH);
         add(controlPanel, BorderLayout.NORTH);
 
@@ -53,12 +60,12 @@ public class QuartoGUI extends JFrame {
         updateLabel(firstInfo);
     }
 
-    private JPanel getPiecesPanel() {
+    private JPanel constructPiecesPanel() {
         JPanel wrapperPanel = new JPanel();
         wrapperPanel.setLayout(new BoxLayout(wrapperPanel, BoxLayout.Y_AXIS));
 
         JPanel piecesPanel = new JPanel();
-        piecesPanel.setLayout(new GridLayout(8,2));
+        piecesPanel.setLayout(new GridLayout(8, 2));
 
         wrapperPanel.add(piecesPanel);
         for (Piece piece : Pieces.getAllPieces()) {
@@ -69,7 +76,7 @@ public class QuartoGUI extends JFrame {
         return wrapperPanel;
     }
 
-    private JPanel getBoardButtonsPanel() {
+    private JPanel constructBoardButtonsPanel() {
         JPanel boardPanel = new JPanel(new GridLayout(game.BOARD_SIZE, game.BOARD_SIZE));
         boardButtons = new PieceShapeButton[game.BOARD_SIZE][game.BOARD_SIZE]; // Initialize boardButtons array
         for (int i = 0; i < game.BOARD_SIZE; i++) {
@@ -81,7 +88,7 @@ public class QuartoGUI extends JFrame {
         return boardPanel;
     }
 
-    private JPanel getInfoPanel() {
+    private JPanel constructInfoPanel() {
         JPanel bottomPanel = new JPanel();
         bottomPanel.setBackground(Color.LIGHT_GRAY);
 
@@ -100,10 +107,12 @@ public class QuartoGUI extends JFrame {
 
         button.setPreferredSize(new Dimension(BOARD_BUTTON_SIZE, BOARD_BUTTON_SIZE));
         button.addActionListener((e) -> {
-            if (selectedPiece == null) return;
+            if (selectedPiece == null)
+                return;
 
             boolean placed = game.placePiece(i, j, selectedPiece);
-            if (!placed) return;
+            if (!placed)
+                return;
 
             Game.Turn turn = game.getTurn();
 
@@ -135,7 +144,8 @@ public class QuartoGUI extends JFrame {
             case PLAYER_1 -> "Player 1";
             case PLAYER_2 -> "Player 2";
         };
-        JOptionPane.showMessageDialog(this, "Congratulations! " + winner + " wins!", "Winner", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Congratulations! " + winner + " wins!", "Winner",
+                JOptionPane.INFORMATION_MESSAGE);
     }
 
     private void showDrawDialog() {
@@ -159,7 +169,7 @@ public class QuartoGUI extends JFrame {
         return pieceButton;
     }
 
-    private JPanel getControlPanel() {
+    private JPanel constructControlPanel() {
         JPanel controlPanel = new JPanel();
         JButton restartButton = new JButton("Restart");
         restartButton.addActionListener(new ActionListener() {
@@ -173,28 +183,29 @@ public class QuartoGUI extends JFrame {
     }
 
     private void resetGame() {
-        game.reset(); 
+        game.reset();
     }
 
     private void restartGame() {
-        resetGame(); 
-        resetLeftSidePiecePanel(); 
+        resetGame();
+        resetLeftSidePiecePanel();
         resetBoardButtons();
     }
 
     private void resetLeftSidePiecePanel() {
         // Iterate through all the buttons in the pieces panel
-        Component[] components = getPiecesPanel().getComponents();
+        JPanel piecePanel = (JPanel) pieceWrapperPanel.getComponents()[0];
+        Component[] components = piecePanel.getComponents();
         for (Component component : components) {
+            System.out.println(component);
             if (component instanceof PieceShapeButton) {
                 PieceShapeButton button = (PieceShapeButton) component;
                 button.setEnabled(true);
             }
         }
     }
-    
+
     private void resetBoardButtons() {
-        JPanel boardPanel = getBoardButtonsPanel();
         Component[] components = boardPanel.getComponents();
         for (Component component : components) {
             if (component instanceof PieceShapeButton) {
