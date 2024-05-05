@@ -7,17 +7,38 @@ import core.Pieces.Pieces;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * The QuartoGame class represents the main game logic for playing Quarto in the console.
+ */
 public class QuartoGame {
+    /**
+     * List of available pieces
+     */
     private List<Piece> pieces;
+    /**
+     * The game board
+     */
     private Game board;
+    /**
+     * Scanner for user input
+     */
     private Scanner scanner;
 
+    /**
+     * Constructs a new QuartoGame instance.
+     * Initializes the list of pieces, the game board, and the scanner for user input.
+     */
     public QuartoGame () {
         this.pieces = Pieces.getAllPieces();
         this.board = new Game();
         this.scanner = new Scanner(System.in);
     }
 
+    /**
+     * Allows player to select a piece to be played by the opponent.
+     * @param currentPlayer The current player's turn (1 or 2)
+     * @return The selected piece
+     */
     private Piece selectPieceForOpponent (int currentPlayer) {
         System.out.println("Available Pieces:");
         for (int i = 0; i < pieces.size(); i++) {
@@ -32,6 +53,10 @@ public class QuartoGame {
         return pieces.remove(pieceIndex);
     }
 
+    /**
+     * Allows player to select a position on the board to place a piece.
+     * @return The selected position as an array [row, column]
+     */
     private int[] selectPosition() {
         System.out.println("Select position (row[1-4] column[1-4]):");
         int row = scanner.nextInt() - 1;
@@ -44,6 +69,10 @@ public class QuartoGame {
         return new int[]{row, col};
     }
 
+    /**
+     * Starts the Quarto game.
+     * Manages the game flow until a player wins or the game ends in a draw.
+     */
     public void startGame() {
         System.out.println("Welcome to Quarto!");
         System.out.println("Let's start the game.");
@@ -81,6 +110,9 @@ public class QuartoGame {
         }
     }
 
+    /**
+     * Displays the rules of the Quarto game.
+     */
     public void showGameRules () {
         System.out.println("Game Rules:");
         System.out.println();

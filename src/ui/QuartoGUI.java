@@ -5,30 +5,59 @@ import core.Game;
 import core.Pieces.Pieces;
 
 import javax.swing.*;
-
 import java.awt.*;
 
+/**
+ * The QuartoGUI class represents the graphical user interface (GUI) for the Quarto game.
+ * It extends the JFrame class.
+ */
 public class QuartoGUI extends JFrame {
 
+    /**
+     * Array to store the buttons representing the game board
+     */
     private PieceShapeButton[][] boardButtons;
 
+    /**
+     * Dimensions of the GUI components
+     */
     public static final int WIDTH = 1000;
     public static final int HEIGHT = 900;
     public static final int SIDE_BUTTON_SIZE = 100;
     public static final int BOARD_BUTTON_SIZE = 200;
 
+    /**
+     * Label format for displaying player instructions
+     */
     private static final String label = "%s, choose piece for %s";
 
+    /**
+     * Game instance
+     */
     private final Game game;
+
+    /**
+     * Selected game piece and its corresponding button
+     */
     private Piece selectedPiece;
     private PieceShapeButton selectedPieceShapeButton;
+
+    /**
+     * JLabel for displaying game information
+     */
     private final JLabel infoLabel = new JLabel();
 
+    /**
+     * JPanels for organizing GUI components
+     */
     private final JPanel infoPanel;
     private final JPanel boardPanel;
     private final JPanel pieceWrapperPanel;
     private final JPanel controlPanel;
 
+    /**
+     * Constructs a new QuartoGUI instance, initializing the GUI components and setting up the game.
+     */
     public QuartoGUI() {
 
         boardButtons = new PieceShapeButton[4][4];
@@ -56,6 +85,10 @@ public class QuartoGUI extends JFrame {
         updateLabel(firstInfo);
     }
 
+    /**
+     * Method for constructing the panel containing the pieces for selection
+     * @return wrapperPanel
+     */
     private JPanel constructPiecesPanel() {
         JPanel wrapperPanel = new JPanel();
         wrapperPanel.setLayout(new BoxLayout(wrapperPanel, BoxLayout.Y_AXIS));
@@ -72,6 +105,10 @@ public class QuartoGUI extends JFrame {
         return wrapperPanel;
     }
 
+    /**
+     * Method for constructing the panel containing the game board buttons
+     * @return boardPanel
+     */
     private JPanel constructBoardButtonsPanel() {
         JPanel boardPanel = new JPanel(new GridLayout(game.BOARD_SIZE, game.BOARD_SIZE));
         boardButtons = new PieceShapeButton[game.BOARD_SIZE][game.BOARD_SIZE]; // Initialize boardButtons array
@@ -84,6 +121,10 @@ public class QuartoGUI extends JFrame {
         return boardPanel;
     }
 
+    /**
+     * Method for constructing the panel containing the game information label
+     * @return bottomPanel
+     */
     private JPanel constructInfoPanel() {
         JPanel bottomPanel = new JPanel();
         bottomPanel.setBackground(Color.LIGHT_GRAY);
@@ -93,11 +134,22 @@ public class QuartoGUI extends JFrame {
         return bottomPanel;
     }
 
+    /**
+     * Method for updating the game information label
+     * @param text String value
+     */
     private void updateLabel(String text) {
         infoLabel.setText(text);
         infoLabel.repaint();
     }
 
+    /**
+     * Method for handling button click events on the game board
+     * @param buttons PieceShapeButton 2-dim array
+     * @param i i - coordinate
+     * @param j j - coordinate
+     * @return botton
+     */
     private PieceShapeButton getButton(PieceShapeButton[][] buttons, int i, int j) {
         PieceShapeButton button = new PieceShapeButton();
 
@@ -134,6 +186,9 @@ public class QuartoGUI extends JFrame {
         return button;
     }
 
+    /**
+     * Method for displaying a dialog when a player wins
+     */
     private void showWinDialog() {
         Game.Turn turn = game.getTurn();
         String winner = switch (turn) {
@@ -144,10 +199,18 @@ public class QuartoGUI extends JFrame {
                 JOptionPane.INFORMATION_MESSAGE);
     }
 
+    /**
+     * Method for displaying a dialog when the game ends in a draw
+     */
     private void showDrawDialog() {
         JOptionPane.showMessageDialog(this, "It's a draw!", "Draw", JOptionPane.INFORMATION_MESSAGE);
     }
 
+    /**
+     * Method for creating a PieceShapeButton for a given game piece
+     * @param piece Piece class object
+     * @return pieceButton
+     */
     private PieceShapeButton getPieceShapeButton(Piece piece) {
         PieceShapeButton pieceButton = new PieceShapeButton(piece);
         pieceButton.setPreferredSize(new Dimension(SIDE_BUTTON_SIZE, SIDE_BUTTON_SIZE));
@@ -165,6 +228,10 @@ public class QuartoGUI extends JFrame {
         return pieceButton;
     }
 
+    /**
+     * Method for constructing the panel containing the control button(s)
+     * @return controlPanel
+     */
     private JPanel constructControlPanel() {
         JPanel controlPanel = new JPanel();
         JButton restartButton = new JButton("Restart");
@@ -173,16 +240,25 @@ public class QuartoGUI extends JFrame {
         return controlPanel;
     }
 
+    /**
+     * Method for resetting the game state
+     */
     private void resetGame() {
         game.reset();
     }
 
+    /**
+     * Method for restarting the game
+     */
     private void restartGame() {
         resetGame();
         resetLeftSidePiecePanel();
         resetBoardButtons();
     }
 
+    /**
+     * Method for resetting the piece selection panel
+     */
     private void resetLeftSidePiecePanel() {
         JPanel piecePanel = (JPanel) pieceWrapperPanel.getComponents()[0];
         Component[] components = piecePanel.getComponents();
@@ -193,6 +269,9 @@ public class QuartoGUI extends JFrame {
         }
     }
 
+    /**
+     * Method for resetting the board buttons
+     */
     private void resetBoardButtons() {
         Component[] components = boardPanel.getComponents();
         for (Component component : components) {
