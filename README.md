@@ -24,11 +24,15 @@ Ensure you have Java Development Kit (JDK) installed.
 Compile the Java source files using <code>javac</code>.  
 Run the <code>Main</code> class to start the game.  
 
-<h3>Copy code</h3> 
-<code>git clone https://github.com/yourusername/quarto-game.git</code>  
-<code>cd quarto-game</code>  
-<code>javac *.java</code>  
-<code>java Main</code>  
+<h3>Copy code</h3>  
+<code>git clone https://github.com/yourusername/quarto-game.git</code>
+
+<code>cd quarto-game</code>
+
+<code>javac *.java</code>
+
+<code>java Main</code>
+
 
 <h2>How to Play</h2>
 
