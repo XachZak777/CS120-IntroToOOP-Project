@@ -25,6 +25,7 @@ bin/
 ### VS Code ###
 .vscode/
 .idea
+cs120_project.iml
 
 ### Mac OS ###
 .DS_Store
