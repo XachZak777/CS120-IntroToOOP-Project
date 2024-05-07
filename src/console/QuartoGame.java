@@ -76,10 +76,10 @@ public class QuartoGame {
     public void startGame() {
         System.out.println("Welcome to Quarto!");
         System.out.println("Let's start the game.");
-
+    
         while (!board.checkWin() && !pieces.isEmpty()) {
-            System.out.println(board); // Print the current game board
             // Player 1's turn
+            System.out.println(board); // Print the current game board
             System.out.println("Player 1's turn:");
             Piece pieceForOpponent = selectPieceForOpponent(1);
             int[] position = selectPosition();
@@ -92,9 +92,9 @@ public class QuartoGame {
                 System.out.println("No more pieces to select. It's a draw!");
                 break;
             }
-
-            System.out.println(board); // Print the current game board
+    
             // Player 2's turn
+            System.out.println(board); // Print the current game board
             System.out.println("Player 2's turn:");
             pieceForOpponent = selectPieceForOpponent(2);
             position = selectPosition();
@@ -103,10 +103,11 @@ public class QuartoGame {
                 System.out.println("Player 2 wins!");
                 break;
             }
-            if (pieces.isEmpty()) {
-                System.out.println("No more pieces to select. It's a draw!");
-                break;
-            }
         }
-    }
+    
+        // Check for draw after the loop ends
+        if (!board.checkWin() && pieces.isEmpty()) {
+            System.out.println("No more pieces to select. It's a draw!");
+        }
+    }    
 }

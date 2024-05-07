@@ -13,6 +13,9 @@ import java.awt.*;
  */
 public class QuartoGUI extends JFrame {
 
+    private int player1Wins = 0;
+    private int player2Wins = 0;
+
     /**
      * Array to store the buttons representing the game board
      */
@@ -46,6 +49,8 @@ public class QuartoGUI extends JFrame {
      * JLabel for displaying game information
      */
     private final JLabel infoLabel = new JLabel();
+    private final JLabel winCountLabel = new JLabel();
+
 
     /**
      * JPanels for organizing GUI components
@@ -83,6 +88,7 @@ public class QuartoGUI extends JFrame {
 
         String firstInfo = String.format(label + " to start the game!", "Player 2", "Player 1");
         updateLabel(firstInfo);
+        updateWinCountLabel();
     }
 
     /**
@@ -127,10 +133,9 @@ public class QuartoGUI extends JFrame {
      */
     private JPanel constructInfoPanel() {
         JPanel bottomPanel = new JPanel();
-        bottomPanel.setBackground(Color.DARK_GRAY);
-
+        bottomPanel.setBackground(Color.GRAY);
         bottomPanel.add(infoLabel);
-
+        bottomPanel.add(winCountLabel); 
         return bottomPanel;
     }
 
@@ -190,11 +195,23 @@ public class QuartoGUI extends JFrame {
      * Method for displaying a dialog when a player wins
      */
     private void showWinDialog() {
-        Game.Turn turn = game.getTurn();
-        String winner = switch (turn) {
-            case PLAYER_1 -> "Player 1";
-            case PLAYER_2 -> "Player 2";
-        };
+        String winner;
+        switch (game.getTurn()) {
+            case PLAYER_1:
+                winner = "Player 2";
+                player2Wins++;
+                break;
+            case PLAYER_2:
+                winner = "Player 1";
+                player1Wins++;
+                break;
+            default:
+                winner = "Unknown";
+        }
+    
+        // Update the win count label after determining the winner
+        updateWinCountLabel();
+    
         JOptionPane.showMessageDialog(this, "Congratulations! " + winner + " wins!", "Winner",
                 JOptionPane.INFORMATION_MESSAGE);
     }
@@ -340,5 +357,13 @@ public class QuartoGUI extends JFrame {
                 button.repaint();
             }
         }
+    }
+
+    /**
+     * Method for count label setting
+     */
+    private void updateWinCountLabel() {
+        winCountLabel.setText(String.format("Player 1 Wins: %d | Player 2 Wins: %d", player1Wins, player2Wins));
+        winCountLabel.repaint();
     }
 }
