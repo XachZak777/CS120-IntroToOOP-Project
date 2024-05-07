@@ -1,5 +1,4 @@
 import javax.swing.SwingUtilities;
-
 import ui.QuartoGUI;
 /**
  * Main Class for execution
