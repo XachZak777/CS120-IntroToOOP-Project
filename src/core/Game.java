@@ -146,9 +146,7 @@ public class Game {
      */
     private boolean checkRowsForWin() {
         for (int row = 0; row < BOARD_SIZE; row++) {
-            if (checkLineForWin(board[row][0], board[row][1], board[row][2], board[row][3])) {
-                return true;
-            }
+            if (checkLineForWin(board[row])) return true;
         }
         return false;
     }
