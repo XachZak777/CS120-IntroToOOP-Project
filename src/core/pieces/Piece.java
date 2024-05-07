@@ -1,14 +1,20 @@
 package core.pieces;
 
-import core.attributes.Color;
-import core.attributes.Form;
-import core.attributes.Fullness;
-import core.attributes.Height;
+import core.attributes.*;
 
 /**
  * The Piece class represents a Quarto game piece with attributes such as height, color, fullness, and form.
  */
 public class Piece {
+    public static <TAttribute extends Attribute> boolean allPiecesMatch(Piece[] pieces, TAttribute attribute) {
+        for (Piece piece : pieces) {
+            if (piece == null || !piece.matchesAttribute(attribute)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     private final Height height;
     private final Color color;
     private final Fullness fullness;
@@ -69,14 +75,17 @@ public class Piece {
     }
 
     /**
-     * Checks if the piece matches all attributes with another piece.
-     * @param otherPiece The other piece to compare attributes with
-     * @return True if all attributes match, otherwise false
+     * Checks if the piece has the specific attribute.
+     * @param attribute The attribute to check
+     * @return True if attribute matches, otherwise false
      */
-    public boolean matchesAttribute (Piece otherPiece) {
-        return this.getForm() == otherPiece.getForm() &&
-               this.getColor() == otherPiece.getColor() &&
-               this.getFullness() == otherPiece.getFullness() &&
-               this.getHeight() == otherPiece.getHeight();
+    public  <TAttribute extends Attribute> boolean matchesAttribute(TAttribute attribute) {
+        return switch (attribute) {
+            case Height _height -> getHeight() == _height;
+            case Fullness _fullness -> getFullness() == _fullness;
+            case Form _form -> getForm() == _form;
+            case Color _color -> getColor() == _color;
+            case null, default -> false;
+        };
     }
 }

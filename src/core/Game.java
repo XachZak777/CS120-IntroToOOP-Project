@@ -94,12 +94,7 @@ public class Game {
      * @return True if a player has won, otherwise false
      */
     public boolean checkWin() {
-        if (checkRowsForWin() || checkColumnsForWin() || checkDiagonalsForWin()) {
-            return true; // Player 1 or Player 2 wins
-        } else if (checkDraw()) {
-            return true; // Draw
-        }
-        return false; // No win or draw
+        return checkRowsForWin() || checkColumnsForWin() || checkDiagonalsForWin(); // Player 1 or Player 2 wins
     }
 
     /**
@@ -142,7 +137,7 @@ public class Game {
      * @param col The column index of the position
      * @return True if the position is valid, otherwise false
      */
-    private boolean isPositionValid (int row, int col) {
+    private boolean isPositionValid(int row, int col) {
         return row >= 0 && row < BOARD_SIZE && col >= 0 && col < BOARD_SIZE;
     }
 
@@ -150,7 +145,7 @@ public class Game {
      * Helper methods for checking win conditions.
      */
     private boolean checkRowsForWin() {
-        for (int row = 0; row < 4; row++) {
+        for (int row = 0; row < BOARD_SIZE; row++) {
             if (checkLineForWin(board[row][0], board[row][1], board[row][2], board[row][3])) {
                 return true;
             }
@@ -159,7 +154,7 @@ public class Game {
     }
 
     private boolean checkColumnsForWin() {
-        for (int col = 0; col < 4; col++) {
+        for (int col = 0; col < BOARD_SIZE; col++) {
             if (checkLineForWin(board[0][col], board[1][col], board[2][col], board[3][col])) {
                 return true;
             }
@@ -176,38 +171,21 @@ public class Game {
         if (pieces[0] == null) return false; // Can't have a line win if the first piece is null
         // Check each attribute type for matches
         for (Height height : Height.values()) {
-            if (allMatchAttribute(pieces, height)) return true;
+            if (Piece.allPiecesMatch(pieces, height)) return true;
         }
         for (Fullness fullness : Fullness.values()) {
-            if (allMatchAttribute(pieces, fullness)) return true;
+            if (Piece.allPiecesMatch(pieces, fullness)) return true;
         }
         for (Form form : Form.values()) {
-            if (allMatchAttribute(pieces, form)) return true;
+            if (Piece.allPiecesMatch(pieces, form)) return true;
         }
         for (Color color : Color.values()) {
-            if (allMatchAttribute(pieces, color)) return true;
+            if (Piece.allPiecesMatch(pieces, color)) return true;
         }
         return false;
     }
 
-    private <TAttribute extends Attribute> boolean allMatchAttribute (Piece[] pieces, TAttribute attribute) {
-        for (Piece piece : pieces) {
-            if (piece == null || !isEqual(piece, attribute)) {
-                return false;
-            }
-        }
-        return true;
-    }
 
-    private <TAttribute extends Attribute> boolean isEqual (Piece piece, TAttribute attribute) {
-        return switch (attribute) {
-            case Height height -> piece.getHeight() == height;
-            case Fullness fullness -> piece.getFullness() == fullness;
-            case Form form -> piece.getForm() == form;
-            case Color color -> piece.getColor() == color;
-            case null, default -> false;
-        };
-    }
 
     /**
      * Generates a string representation of the game board.
