@@ -1,8 +1,8 @@
 package ui;
 
+import core.pieces.Piece;
 import core.attributes.Form;
 import core.attributes.Fullness;
-import core.pieces.Piece;
 
 import javax.swing.*;
 import java.awt.*;
@@ -35,6 +35,26 @@ public class PieceShapeButton extends JButton {
      */
     public void setPiece(Piece piece) {
         _piece = piece;
+    }
+
+    /**
+     * Disables the piece button, to be differentiable in the GUI
+     */
+    public void disablePiece() {
+        setOpaque(true);
+        setContentAreaFilled(true);
+        setBorderPainted(false);
+        setEnabled(false);
+    }
+
+    /**
+     * Resets button to its original conditions.
+     */
+    public void enablePiece() {
+        setOpaque(false);
+        setContentAreaFilled(false);
+        setBorderPainted(true);
+        setEnabled(true);
     }
 
     /**
@@ -80,7 +100,7 @@ public class PieceShapeButton extends JButton {
      */
     protected void setFullnessAndForm(Graphics2D g2d, int[] sizes) {
         g2d.setStroke(new BasicStroke(5));
-        if (_piece.getForm() == Form.ROUND && _piece.getFullness() == Fullness.SOLID) {
+        if (_piece.getForm() == core.attributes.Form.ROUND && _piece.getFullness() == Fullness.SOLID) {
             g2d.fillOval(sizes[0], sizes[1], sizes[2], sizes[3]);
         }
         if (_piece.getForm() == Form.SQUARE && _piece.getFullness() == Fullness.SOLID) {

@@ -65,12 +65,12 @@ public class QuartoGUI extends JFrame {
      * Constructs a new QuartoGUI instance, initializing the GUI components and setting up the game.
      */
     public QuartoGUI() {
-
         boardButtons = new PieceShapeButton[4][4];
         setTitle("Quarto Game");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
         setSize(WIDTH, HEIGHT);
+        infoLabel.setForeground(Color.WHITE);
 
         game = new Game();
 
@@ -87,7 +87,7 @@ public class QuartoGUI extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
 
-        String firstInfo = String.format(label + " to start the game!", "Player 2", "Player 1");
+        String firstInfo = String.format(label + " to start the game!", Game.Turn.PLAYER_2, Game.Turn.PLAYER_1);
         updateLabel(firstInfo);
         updateWinCountLabel();
     }
@@ -134,31 +134,24 @@ public class QuartoGUI extends JFrame {
      */
     private JPanel constructInfoPanel() {
         JPanel bottomPanel = new JPanel();
+        bottomPanel.setForeground(Color.LIGHT_GRAY);
         bottomPanel.setBackground(Color.GRAY);
+
         bottomPanel.add(infoLabel);
-        bottomPanel.add(winCountLabel); 
+        bottomPanel.add(winCountLabel);
         return bottomPanel;
     }
 
     /**
-     * Method for updating the game information label
-     * @param text String value
+     * Method for handling button click events on the game board
+     * @param buttons PieceShapeButton 2-dim array
+     * @param i i - coordinate
+     * @param j j - coordinate
+     * @return button
      */
-    private void updateLabel(String text) {
-        infoLabel.setText(text);
-        infoLabel.repaint();
-    }
-
-    /**
-    * Method for handling button click events on the game board
-    * @param buttons PieceShapeButton 2-dim array
-    * @param i i - coordinate
-    * @param j j - coordinate
-    * @return botton
-    * @throws InvalidPiecePlacementException
-    */
     private PieceShapeButton getButton(PieceShapeButton[][] buttons, int i, int j) {
         PieceShapeButton button = new PieceShapeButton();
+
         button.setPreferredSize(new Dimension(BOARD_BUTTON_SIZE, BOARD_BUTTON_SIZE));
         button.addActionListener((e) -> {
             try {
@@ -172,14 +165,14 @@ public class QuartoGUI extends JFrame {
                 // Update game turn information
                 Game.Turn turn = game.getTurn();
                 switch (turn) {
-                    case PLAYER_1 -> updateLabel(String.format(label, "Player 2", "Player 1"));
-                    case PLAYER_2 -> updateLabel(String.format(label, "Player 1", "Player 2"));
+                    case PLAYER_1 -> updateLabel(String.format(label, Game.Turn.PLAYER_2, Game.Turn.PLAYER_1));
+                    case PLAYER_2 -> updateLabel(String.format(label, Game.Turn.PLAYER_1, Game.Turn.PLAYER_2));
                 }
 
                 // Mark the button with the placed piece
                 buttons[i][j].setPiece(selectedPiece);
                 buttons[i][j].repaint();
-                selectedPieceShapeButton.setEnabled(false);
+                selectedPieceShapeButton.disablePiece();
 
                 // Clear the selected piece
                 selectedPiece = null;
@@ -204,25 +197,22 @@ public class QuartoGUI extends JFrame {
      * Method for displaying a dialog when a player wins
      */
     private void showWinDialog() {
-        String winner;
+        Game.Turn turn = game.getTurn();
+        String winner = turn.toString();
+        String message = String.format("""
+                Congratulations! %s wins!
+                Click Ok to start a new game!""", winner);
+        String title = "Winner";
+
         switch (game.getTurn()) {
-            case PLAYER_1:
-                winner = "Player 2";
-                player2Wins++;
-                break;
-            case PLAYER_2:
-                winner = "Player 1";
-                player1Wins++;
-                break;
-            default:
-                winner = "Unknown";
+            case PLAYER_1 -> player2Wins++;
+            case PLAYER_2 -> player1Wins++;
         }
-    
+
         // Update the win count label after determining the winner
         updateWinCountLabel();
-    
-        JOptionPane.showMessageDialog(this, "Congratulations! " + winner + " wins!", "Winner",
-                JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, message, title, JOptionPane.INFORMATION_MESSAGE);
+        restartGame();
     }
 
     /**
@@ -247,8 +237,8 @@ public class QuartoGUI extends JFrame {
             Game.Turn turn = game.getTurn();
 
             switch (turn) {
-                case PLAYER_1 -> updateLabel("Player 1's turn. Piece to play: " + piece);
-                case PLAYER_2 -> updateLabel("Player 2's turn. Piece to play: " + piece);
+                case PLAYER_1 -> updateLabel(String.format("%s's turn. Piece to play: %s", Game.Turn.PLAYER_1, piece));
+                case PLAYER_2 -> updateLabel(String.format("%s's turn. Piece to play: %s", Game.Turn.PLAYER_2, piece));
             }
         });
         return pieceButton;
@@ -281,7 +271,7 @@ public class QuartoGUI extends JFrame {
     /**
      * Method for showing the game rules in different languages
      */
-    private void showRules () {
+    private void showRules() {
         JFrame rulesFrame = new JFrame("Select Language:");
 
         JPanel controlPanel = new JPanel();
@@ -349,7 +339,7 @@ public class QuartoGUI extends JFrame {
         Component[] components = piecePanel.getComponents();
         for (Component component : components) {
             if (component instanceof PieceShapeButton button) {
-                button.setEnabled(true);
+                button.enablePiece();
             }
         }
     }
@@ -362,7 +352,7 @@ public class QuartoGUI extends JFrame {
         for (Component component : components) {
             if (component instanceof PieceShapeButton button) {
                 button.setPiece(null);
-                button.setEnabled(true);
+                button.enablePiece();
                 button.repaint();
             }
         }
@@ -372,7 +362,16 @@ public class QuartoGUI extends JFrame {
      * Method for count label setting
      */
     private void updateWinCountLabel() {
-        winCountLabel.setText(String.format("Player 1 Wins: %d | Player 2 Wins: %d", player1Wins, player2Wins));
+        winCountLabel.setText(String.format("%s Wins: %d | %s Wins: %d", Game.Turn.PLAYER_1, player1Wins, Game.Turn.PLAYER_2, player2Wins));
         winCountLabel.repaint();
+    }
+
+    /**
+     * Method for updating the game information label
+     * @param text String value
+     */
+    private void updateLabel(String text) {
+        infoLabel.setText(text);
+        infoLabel.repaint();
     }
 }

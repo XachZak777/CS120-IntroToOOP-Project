@@ -1,7 +1,7 @@
 package core.attributes;
 
 /**
- * The Attribute interface indicating enums.
- * Implementing classes define specific attributes such as color, size, shape, etc.
+ * The base interface Attribute for every attribute.
+ * Implementing entities define specific attributes such as color, size, shape, etc.
  */
 public interface Attribute {}
