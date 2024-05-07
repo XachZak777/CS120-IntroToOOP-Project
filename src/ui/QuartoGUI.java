@@ -99,7 +99,7 @@ public class QuartoGUI extends JFrame {
     private void showInitialPopup() {
         JFrame startFrame = new JFrame("QUARTO");
         startFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        startFrame.setSize(400, 100);
+        startFrame.setSize(400, 75);
         startFrame.setLayout(new BorderLayout());
 
         JPanel buttonPanel = new JPanel(new FlowLayout());
