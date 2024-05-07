@@ -49,8 +49,8 @@ public class PieceShapeButton extends JButton {
         Graphics2D g2d = (Graphics2D) g;
 
         switch (_piece.getColor()) {
-            case DARK -> g2d.setColor(java.awt.Color.RED);
-            case LIGHT -> g2d.setColor(java.awt.Color.ORANGE);
+            case DARK -> g2d.setColor(java.awt.Color.cyan);
+            case LIGHT -> g2d.setColor(java.awt.Color.orange);
         }
 
         int[] sizes = getPieceSize();
