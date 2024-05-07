@@ -234,8 +234,13 @@ public class QuartoGUI extends JFrame {
      */
     private JPanel constructControlPanel() {
         JPanel controlPanel = new JPanel();
+        JButton rulesButton = new JButton("Game Rules");
+        rulesButton.addActionListener((e) -> showRules());
+        
         JButton restartButton = new JButton("Restart");
         restartButton.addActionListener((e) -> restartGame());
+
+        controlPanel.add(rulesButton);
         controlPanel.add(restartButton);
         return controlPanel;
     }
@@ -245,6 +250,17 @@ public class QuartoGUI extends JFrame {
      */
     private void resetGame() {
         game.reset();
+    }
+
+    /**
+     * Method to Print out the Game Rules
+     */
+    private void showRules () {
+        JOptionPane.showMessageDialog(this, "Here are the basic rules:" + "\n" + "1. Players take turns placing pieces on the board."  + "\n" +
+        "2. Once a piece is placed on the board, it cannot be moved or removed." +  "\n" + "3. The player who places a piece chooses which piece the opponent will play next." + "\n" +
+        "4. The game continues until a player forms a line of four pieces with a common attribute (e.g., four tall pieces, four dark pieces, etc.)." + "\n" +
+        "5. If the board is filled without any player achieving a winning line, the game ends in a draw.", "Game Rules",
+        JOptionPane.INFORMATION_MESSAGE);
     }
 
     /**
