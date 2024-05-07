@@ -19,7 +19,7 @@ public class QuartoGame {
     /**
      * The game board
      */
-    private Game board;
+    private Game game;
     /**
      * Scanner for user input
      */
@@ -31,7 +31,7 @@ public class QuartoGame {
      */
     public QuartoGame () {
         this.pieces = Pieces.getAllPieces();
-        this.board = new Game();
+        this.game = new Game();
         this.scanner = new Scanner(System.in);
     }
 
@@ -62,7 +62,7 @@ public class QuartoGame {
         System.out.println("Select position (row[1-4] column[1-4]):");
         int row = scanner.nextInt() - 1;
         int col = scanner.nextInt() - 1;
-        while (row < 0 || row >= 4 || col < 0 || col >= 4 || !board.isPositionEmpty(row, col)) {
+        while (row < 0 || row >= game.BOARD_SIZE || col < 0 || col >= game.BOARD_SIZE || !game.isPositionEmpty(row, col)) {
             System.out.println("Invalid position. Please select a valid position:");
             row = scanner.nextInt() - 1;
             col = scanner.nextInt() - 1;
@@ -78,14 +78,14 @@ public class QuartoGame {
         System.out.println("Welcome to Quarto!");
         System.out.println("Let's start the game.");
     
-        while (!board.checkWin() && !pieces.isEmpty()) {
+        while (!game.checkWin() && !pieces.isEmpty()) {
             // Player 1's turn
-            System.out.println(board); // Print the current game board
+            System.out.println(game); // Print the current game board
             System.out.println("Player 1's turn:");
             Piece pieceForOpponent = selectPieceForOpponent(1);
             int[] position = selectPosition();
-            board.placePiece(position[0], position[1], pieceForOpponent);
-            if (board.checkWin()) {
+            game.placePiece(position[0], position[1], pieceForOpponent);
+            if (game.checkWin()) {
                 System.out.println("Player 1 wins!");
                 break;
             }
@@ -95,19 +95,19 @@ public class QuartoGame {
             }
     
             // Player 2's turn
-            System.out.println(board); // Print the current game board
+            System.out.println(game); // Print the current game board
             System.out.println("Player 2's turn:");
             pieceForOpponent = selectPieceForOpponent(2);
             position = selectPosition();
-            board.placePiece(position[0], position[1], pieceForOpponent);
-            if (board.checkWin()) {
+            game.placePiece(position[0], position[1], pieceForOpponent);
+            if (game.checkWin()) {
                 System.out.println("Player 2 wins!");
                 break;
             }
         }
     
         // Check for draw after the loop ends
-        if (!board.checkWin() && pieces.isEmpty()) {
+        if (!game.checkWin() && pieces.isEmpty()) {
             System.out.println("No more pieces to select. It's a draw!");
         }
     }    
