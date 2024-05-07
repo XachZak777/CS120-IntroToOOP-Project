@@ -1,9 +1,9 @@
-package core.Pieces;
-
-import core.Attributes.*;
+package core.pieces;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import core.attributes.*;
 
 /**
  * The Pieces class provides a utility for generating all possible Quarto game pieces.

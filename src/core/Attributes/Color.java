@@ -1,4 +1,4 @@
-package core.Attributes;
+package core.attributes;
 
 /**
  * The Color enum represents the color attribute for Quarto game pieces.

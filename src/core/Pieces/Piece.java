@@ -1,9 +1,9 @@
-package core.Pieces;
+package core.pieces;
 
-import core.Attributes.Color;
-import core.Attributes.Form;
-import core.Attributes.Fullness;
-import core.Attributes.Height;
+import core.attributes.Color;
+import core.attributes.Form;
+import core.attributes.Fullness;
+import core.attributes.Height;
 
 /**
  * The Piece class represents a Quarto game piece with attributes such as height, color, fullness, and form.

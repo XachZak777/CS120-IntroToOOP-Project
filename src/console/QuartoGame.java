@@ -1,8 +1,9 @@
 package console;
 
 import core.Game;
-import core.Pieces.Piece;
-import core.Pieces.Pieces;
+import core.exceptions.InvalidPiecePlacementException;
+import core.pieces.Piece;
+import core.pieces.Pieces;
 
 import java.util.List;
 import java.util.Scanner;
@@ -73,7 +74,7 @@ public class QuartoGame {
      * Starts the Quarto game.
      * Manages the game flow until a player wins or the game ends in a draw.
      */
-    public void startGame() {
+    public void startGame() throws InvalidPiecePlacementException{
         System.out.println("Welcome to Quarto!");
         System.out.println("Let's start the game.");
     

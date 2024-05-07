@@ -1,7 +1,8 @@
 package core;
 
-import core.Attributes.*;
-import core.Pieces.Piece;
+import core.attributes.*;
+import core.exceptions.InvalidPiecePlacementException;
+import core.pieces.Piece;
 
 /**
  * The Game class represents the game logic for playing Quarto.
@@ -54,19 +55,28 @@ public class Game {
     }
 
     /**
-     * Places a piece on the game board at the specified position.
-     * @param row The row index of the position
-     * @param col The column index of the position
-     * @param piece The piece to be placed
-     * @return True if the piece was successfully placed, otherwise false
-     */
-    public boolean placePiece(int row, int col, Piece piece) {
-        if (isPositionValid(row, col) && isPositionEmpty(row, col)) {
-            board[row][col] = piece;
-            toggleTurn();
-            return true;
+    * Places a piece on the game board at the specified position.
+    * @param row The row index of the position
+    * @param col The column index of the position
+    * @param piece The piece to be placed
+    * @return True if the piece was successfully placed, otherwise false
+    * @throws InvalidPiecePlacementException
+    */
+    public boolean placePiece(int row, int col, Piece piece) throws InvalidPiecePlacementException {
+        // Check if the position is within valid board limits
+        if (!isPositionValid(row, col)) {
+            throw new InvalidPiecePlacementException("Position out of bounds: (" + row + ", " + col + ")");
         }
-        return false;
+
+        // Check if the position is already occupied
+        if (!isPositionEmpty(row, col)) {
+            throw new InvalidPiecePlacementException("Position already occupied: (" + row + ", " + col + ")");
+        }
+
+        // If valid, place the piece and switch turns
+        board[row][col] = piece;
+        toggleTurn();
+        return true;
     }
 
     /**

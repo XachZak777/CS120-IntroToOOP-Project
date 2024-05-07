@@ -1,8 +1,9 @@
 package ui;
 
-import core.Pieces.Piece;
 import core.Game;
-import core.Pieces.Pieces;
+import core.exceptions.InvalidPiecePlacementException;
+import core.pieces.Piece;
+import core.pieces.Pieces;
 
 import javax.swing.*;
 import java.awt.*;
@@ -149,45 +150,53 @@ public class QuartoGUI extends JFrame {
     }
 
     /**
-     * Method for handling button click events on the game board
-     * @param buttons PieceShapeButton 2-dim array
-     * @param i i - coordinate
-     * @param j j - coordinate
-     * @return botton
-     */
+    * Method for handling button click events on the game board
+    * @param buttons PieceShapeButton 2-dim array
+    * @param i i - coordinate
+    * @param j j - coordinate
+    * @return botton
+    * @throws InvalidPiecePlacementException
+    */
     private PieceShapeButton getButton(PieceShapeButton[][] buttons, int i, int j) {
         PieceShapeButton button = new PieceShapeButton();
-
         button.setPreferredSize(new Dimension(BOARD_BUTTON_SIZE, BOARD_BUTTON_SIZE));
         button.addActionListener((e) -> {
-            if (selectedPiece == null)
-                return;
+            try {
+                // Ensure a piece is selected before placement
+                if (selectedPiece == null) return;
 
-            boolean placed = game.placePiece(i, j, selectedPiece);
-            if (!placed)
-                return;
+                // Try to place the selected piece
+                boolean placed = game.placePiece(i, j, selectedPiece);
+                if (!placed) return;
 
-            Game.Turn turn = game.getTurn();
+                // Update game turn information
+                Game.Turn turn = game.getTurn();
+                switch (turn) {
+                    case PLAYER_1 -> updateLabel(String.format(label, "Player 2", "Player 1"));
+                    case PLAYER_2 -> updateLabel(String.format(label, "Player 1", "Player 2"));
+                }
 
-            switch (turn) {
-                case PLAYER_1 -> updateLabel(String.format(label, "Player 2", "Player 1"));
-                case PLAYER_2 -> updateLabel(String.format(label, "Player 1", "Player 2"));
-            }
+                // Mark the button with the placed piece
+                buttons[i][j].setPiece(selectedPiece);
+                buttons[i][j].repaint();
+                selectedPieceShapeButton.setEnabled(false);
 
-            buttons[i][j].setPiece(selectedPiece);
-            buttons[i][j].repaint();
-            selectedPieceShapeButton.setEnabled(false);
+                // Clear the selected piece
+                selectedPiece = null;
+                selectedPieceShapeButton = null;
 
-            selectedPiece = null;
-            selectedPieceShapeButton = null;
+                // Check for win or draw
+                if (game.checkWin()) {
+                    showWinDialog();
+                } else if (game.checkDraw()) {
+                    showDrawDialog();
+                }
 
-            if (game.checkWin()) {
-                showWinDialog();
-            } else if (game.checkDraw()) {
-                showDrawDialog();
+            } catch (InvalidPiecePlacementException ex) {
+                // Show a message dialog with the error information
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Placement Error", JOptionPane.ERROR_MESSAGE);
             }
         });
-
         return button;
     }
 

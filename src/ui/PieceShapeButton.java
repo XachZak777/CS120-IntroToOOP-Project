@@ -1,8 +1,8 @@
 package ui;
 
-import core.Attributes.Form;
-import core.Attributes.Fullness;
-import core.Pieces.Piece;
+import core.attributes.Form;
+import core.attributes.Fullness;
+import core.pieces.Piece;
 
 import javax.swing.*;
 import java.awt.*;

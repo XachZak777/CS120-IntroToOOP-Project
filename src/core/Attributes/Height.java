@@ -1,4 +1,4 @@
-package core.Attributes;
+package core.attributes;
 
 /**
  * The Height enum represents the height attribute for Quarto game pieces.

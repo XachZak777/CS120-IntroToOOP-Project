@@ -1,4 +1,4 @@
-package core.Attributes;
+package core.attributes;
 
 /**
  * The Attribute interface indicating enums.

@@ -1,4 +1,4 @@
-package core.Attributes;
+package core.attributes;
 
 /**
  * The Form enum represents the form attribute for Quarto game pieces.

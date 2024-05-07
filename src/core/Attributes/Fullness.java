@@ -1,4 +1,4 @@
-package core.Attributes;
+package core.attributes;
 
 /**
  * The Fullness enum represents the fullness attribute for Quarto game pieces.
