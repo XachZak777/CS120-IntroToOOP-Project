@@ -64,6 +64,8 @@ public class QuartoGUI extends JFrame {
      * Constructs a new QuartoGUI instance, initializing the GUI components and setting up the game.
      */
     public QuartoGUI() {
+        showInitialPopup();
+
         boardButtons = new PieceShapeButton[4][4];
         setTitle("Quarto Game");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -84,11 +86,40 @@ public class QuartoGUI extends JFrame {
         add(controlPanel, BorderLayout.NORTH);
 
         setLocationRelativeTo(null);
-        setVisible(true);
+        setVisible(false); 
 
         String firstInfo = String.format(label + " to start the game!", Game.Turn.PLAYER_2, Game.Turn.PLAYER_1);
         updateLabel(firstInfo);
         updateWinCountLabel();
+    }
+
+    /**
+     * Displays the initial pop-up window that starts the game
+     */
+    private void showInitialPopup() {
+        JFrame startFrame = new JFrame("QUARTO");
+        startFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        startFrame.setSize(400, 100);
+        startFrame.setLayout(new BorderLayout());
+
+        JPanel buttonPanel = new JPanel(new FlowLayout());
+
+        JButton startGameButton = new JButton("Start Game");
+        JButton rulesButton = new JButton("View Rules");
+
+        rulesButton.addActionListener((e) -> showRules());
+        startGameButton.addActionListener((e) -> {
+            startFrame.dispose(); 
+            setVisible(true); 
+        });
+
+        buttonPanel.add(startGameButton);
+        buttonPanel.add(rulesButton);
+
+        startFrame.add(buttonPanel, BorderLayout.CENTER);
+
+        startFrame.setLocationRelativeTo(null);
+        startFrame.setVisible(true);
     }
 
     /**
@@ -248,14 +279,9 @@ public class QuartoGUI extends JFrame {
      * @return controlPanel
      */
     private JPanel constructControlPanel() {
-        JPanel controlPanel = new JPanel();
-        JButton rulesButton = new JButton("Game Rules");
-        rulesButton.addActionListener((e) -> showRules());
-        
+        JPanel controlPanel = new JPanel();    
         JButton restartButton = new JButton("Restart");
         restartButton.addActionListener((e) -> restartGame());
-
-        controlPanel.add(rulesButton);
         controlPanel.add(restartButton);
         return controlPanel;
     }
