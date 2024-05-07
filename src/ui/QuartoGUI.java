@@ -127,7 +127,7 @@ public class QuartoGUI extends JFrame {
      */
     private JPanel constructInfoPanel() {
         JPanel bottomPanel = new JPanel();
-        bottomPanel.setBackground(Color.LIGHT_GRAY);
+        bottomPanel.setBackground(Color.DARK_GRAY);
 
         bottomPanel.add(infoLabel);
 
@@ -253,14 +253,57 @@ public class QuartoGUI extends JFrame {
     }
 
     /**
-     * Method to Print out the Game Rules
+     * Method for showing the game rules in different languages
      */
     private void showRules () {
+        JFrame rulesFrame = new JFrame("Select Language:");
+
+        JPanel controlPanel = new JPanel();
+
+        JButton rulesButton1 = new JButton("English");
+        JButton rulesButton2 = new JButton("Russian");
+        JButton rulesButton3 = new JButton("Armenian");
+
+        rulesButton1.addActionListener((e) -> showRulesEnglish());
+        rulesButton2.addActionListener((e) -> showRulesRussian());
+        rulesButton3.addActionListener((e) -> showRulesArmenian());
+
+        controlPanel.add(rulesButton1);
+        controlPanel.add(rulesButton2);
+        controlPanel.add(rulesButton3);
+
+        rulesFrame.add(controlPanel);
+        rulesFrame.setSize(300, 150);
+        rulesFrame.setLocationRelativeTo(null);
+        rulesFrame.setVisible(true);
+    }
+
+    /**
+     * Helper Methods for showRules() method
+     */
+    private void showRulesEnglish() {
         JOptionPane.showMessageDialog(this, "Here are the basic rules:" + "\n" + "1. Players take turns placing pieces on the board."  + "\n" +
         "2. Once a piece is placed on the board, it cannot be moved or removed." +  "\n" + "3. The player who places a piece chooses which piece the opponent will play next." + "\n" +
         "4. The game continues until a player forms a line of four pieces with a common attribute (e.g., four tall pieces, four dark pieces, etc.)." + "\n" +
         "5. If the board is filled without any player achieving a winning line, the game ends in a draw.", "Game Rules",
         JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private void showRulesRussian() {
+        JOptionPane.showMessageDialog(this, "Вот основные правила:" + "\n" + "1. Игроки по очереди выставляют фигуры на доску."  + "\n" +
+        "2. После того, как фигура помещена на доску, ее нельзя переместить или удалить." +  "\n" + "3. Игрок, выставивший фигуру, выбирает, какой фигурой соперник будет играть следующей." + "\n" +
+        "4. Игра продолжается до тех пор, пока игрок не выстроит линию из четырех фигур с общим признаком (например, четыре высокие фигуры, четыре темные фигуры и т.д.)." + "\n" +
+        "5. Если доска заполнена и ни один игрок не достиг выигрышной линии, игра заканчивается вничью.", "Правила игры",
+        JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private void showRulesArmenian() {
+        JOptionPane.showMessageDialog(this, "Ահա հիմնական կանոնները." + "\n" + "1. Խաղացողները հերթով խաղաքարեր են դնում խաղատախտակի վրա:"  + "\n" +
+        "2. Երբ կտորը տեղադրվում է տախտակի վրա, այն հնարավոր չէ տեղափոխել կամ հեռացնել:" +  "\n" + "3. Խաղը տեղադրած խաղացողն ընտրում է, թե որ խաղաքարը կխաղա հաջորդը հակառակորդը:" + "\n" +
+        "4. Խաղը շարունակվում է այնքան ժամանակ, մինչև խաղացողը կառուցի չորս կտորներից բաղկացած գիծ՝ ընդհանուր հատկանիշով (օրինակ՝ չորս բարձր, չորս մուգ խաղաքարեր և այլն):" + "\n" +
+        "5. Եթե խաղատախտակը լի է, և ոչ մի խաղացող չի հասել հաղթական գծին, խաղն ավարտվում է ոչ-ոքի:", "Խաղի կանոններ",
+        JOptionPane.INFORMATION_MESSAGE);
+
     }
 
     /**

@@ -227,16 +227,4 @@ public class Game {
         // Reset turn to PLAYER_1
         turn = Turn.PLAYER_1;
     }
-
-    /**
-     * Displays the rules of the Quarto game.
-     */
-    public void showGameRules () {
-        System.out.println("Game Rules:");
-        System.out.println();
-        System.out.println("Here are the basic rules:" + "\n" + "1. Players take turns placing pieces on the board."  + "\n" +
-        "2. Once a piece is placed on the board, it cannot be moved or removed." +  "\n" + "3. The player who places a piece chooses which piece the opponent will play next." + "\n" +
-        "4. The game continues until a player forms a line of four pieces with a common attribute (e.g., four tall pieces, four dark pieces, etc.)." + "\n" +
-        "5. If the board is filled without any player achieving a winning line, the game ends in a draw.");
-    }
 }
