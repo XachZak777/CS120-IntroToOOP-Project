@@ -99,7 +99,7 @@ public class QuartoGUI extends JFrame {
     private void showInitialPopup() {
         JFrame startFrame = new JFrame("QUARTO");
         startFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        startFrame.setSize(400, 75);
+        startFrame.setSize(600, 400);
         startFrame.setLayout(new BorderLayout());
 
         JPanel buttonPanel = new JPanel(new FlowLayout());
@@ -113,10 +113,16 @@ public class QuartoGUI extends JFrame {
             setVisible(true); 
         });
 
+        ImageIcon icon = new ImageIcon("src/ui/quarto.png");
+        JLabel imageLabel = new JLabel(icon);
+        imageLabel.setPreferredSize(new Dimension(600, 343));
+        imageLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
         buttonPanel.add(startGameButton);
         buttonPanel.add(rulesButton);
 
-        startFrame.add(buttonPanel, BorderLayout.CENTER);
+        startFrame.add(buttonPanel, BorderLayout.SOUTH);
+        startFrame.add(imageLabel, BorderLayout.CENTER);
 
         startFrame.setLocationRelativeTo(null);
         startFrame.setVisible(true);
