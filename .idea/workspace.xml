@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="1b3e73d8-4db2-436f-bbf0-57084dffef75" name="Changes" comment="(*)" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;XachZak777&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;git@github.com:XachZak777/CS120-IntroToOOP-Project.git&quot;,
+    &quot;accountId&quot;: &quot;c9f9a97e-32f2-429a-8d1c-720ce69f2caa&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
+  <component name="ProjectId" id="2emnjWVtm1uHwakQHgZTikwgIik" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.QuartoGame.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/xachzak/Desktop/AUA:BSCS/OOP/OOP_Spring_2024/cs120_project&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RunManager">
+    <configuration name="QuartoGame" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="QuartoGame" />
+      <module name="cs120_project" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.QuartoGame" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="1b3e73d8-4db2-436f-bbf0-57084dffef75" name="Changes" comment="" />
+      <created>1712518757176</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1712518757176</updated>
+      <workItem from="1712518758597" duration="413000" />
+      <workItem from="1712653742790" duration="3720000" />
+      <workItem from="1712774717959" duration="215000" />
+      <workItem from="1712777578906" duration="1054000" />
+      <workItem from="1713501778208" duration="117000" />
+      <workItem from="1713628327569" duration="678000" />
+      <workItem from="1714942296898" duration="2165000" />
+      <workItem from="1714944511034" duration="5171000" />
+      <workItem from="1714971271721" duration="161000" />
+      <workItem from="1714971435534" duration="45000" />
+      <workItem from="1715254476101" duration="308000" />
+      <workItem from="1715254879965" duration="50000" />
+      <workItem from="1715254932753" duration="27000" />
+      <workItem from="1715254978167" duration="15000" />
+      <workItem from="1715255040304" duration="234000" />
+      <workItem from="1715255333232" duration="106000" />
+      <workItem from="1715255453877" duration="107000" />
+      <workItem from="1715255568695" duration="41000" />
+      <workItem from="1715255682553" duration="423000" />
+      <workItem from="1715256140331" duration="117000" />
+      <workItem from="1715256302097" duration="47000" />
+      <workItem from="1715256349615" duration="2070000" />
+      <workItem from="1715614981697" duration="227000" />
+    </task>
+    <task id="LOCAL-00001" summary="(*)">
+      <option name="closed" value="true" />
+      <created>1714949793880</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1714949793880</updated>
+    </task>
+    <task id="LOCAL-00002" summary="(*)">
+      <option name="closed" value="true" />
+      <created>1714949822033</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1714949822033</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="(*)" />
+    <option name="LAST_COMMIT_MESSAGE" value="(*)" />
+  </component>
+</project>
